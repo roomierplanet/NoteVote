@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 
 const LoginButton = (props) => {
   const { loginWithPopup } = useAuth0();
-  return <Button style={{'width': '10rem', 'borderRadius': '3rem', 'background-color': 'black'}}variant='contained'
+  return <Button style={{'width': '10rem', 'borderRadius': '3rem', 'backgroundColor': 'black'}}variant='contained'
   onClick={() => loginWithPopup()}>{props.children}</Button>
 };
 

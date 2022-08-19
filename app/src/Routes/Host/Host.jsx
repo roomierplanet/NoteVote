@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useEffect} from 'react'
 import '../../styles.scss'
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from '../../Auth0/Login'
@@ -6,16 +6,18 @@ import getHost from '../../api/getHost';
 import { useNavigate } from 'react-router-dom';
 
 function Host() {
-    const {isLoading, isAuthenticated} = useAuth0();
-    const [res, setRes] = useState(); // eslint-disable-line no-unused-vars
+    const {isLoading, isAuthenticated, user} = useAuth0();
     const navigate = useNavigate();
-    
     useEffect(() => {
         const getResponse = async () => {
-            const response = await getHost.getHostById("62fa93428df041ecba0eb341");
-            setRes(response);
-            // if (response.name === "Gym Name") navigate("/host/signup");
-            // else navigate("/nono");
+            const response = await getHost.getHostByAuth0Id(user.sub);
+            if (response._id === 'none') {
+                navigate("/host/signup");
+            }
+            else {
+                localStorage.setItem('host_id', response._id);
+                navigate("/host/dashboard");
+            }
         }
         if (isAuthenticated && !isLoading) {
             getResponse();
