@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework.views import APIView
@@ -30,10 +31,23 @@ class GroupView(APIView):
         response_id = response.inserted_id
         return HttpResponse(response_id, content_type='application/json')
 
+@csrf_exempt
 def get_group(request, _id):
-    doc = group_records.find_one({"_id": ObjectId(_id)})
-    doc['_id'] = str(doc['_id'])
-    return HttpResponse(json.dumps(doc), content_type='application/json')
+    if request.method == 'GET':
+        doc = group_records.find_one({"_id": ObjectId(_id)})
+        doc['_id'] = str(doc['_id'])
+        return HttpResponse(json.dumps(doc), content_type='application/json')
+    else :
+        _id = ObjectId(_id);
+        doc = group_records.find_one({"_id": _id})
+        req_body = request.body.decode('utf-8')
+        body = json.loads(req_body)
+        toChange = list(body.keys())[0]
+        newDetail = body[toChange]
+        group_records.update_one({"_id": _id}, {"$set": {f'{toChange}': newDetail}})
+        return HttpResponse(json.dumps({
+        'Message': 'Success'
+        })) 
 
 def get_group_auth0(request, auth0_id):
     doc = group_records.find_one({"auth0_id": auth0_id})
@@ -59,4 +73,6 @@ def vote_group(request, _id):
     else:
         plist[song_id] = 1
     group_records.update_one({"_id": _id}, {"$set": {"playlist": plist}})
-    return HttpResponse("hello")
+    return HttpResponse(json.dumps({
+        'Message': 'Success'
+    }))
