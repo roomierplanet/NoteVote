@@ -29,14 +29,23 @@ const Spotify = {
         }
     },
     authorize(redir) {
-        const url = `https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&redirect_uri=${redirectURI}${redir}`;
+        const scopes = [
+            'user-read-private',
+            'playlist-read-private',
+            'playlist-modify-public',
+            'playlist-modify-private',
+            'user-library-read',
+            'user-library-modify',
+            'user-follow-read',
+            'user-follow-modify'
+        ]
+        const url = `https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&redirect_uri=${redirectURI}${redir}&scope=` + encodeURIComponent(scopes.join(' '));;
         window.location = url;
     },
     async getTracks(playlist, redir) {
         const entries = Object.entries(playlist).sort((a, b) => b[1] - a[1]);
         let id_arr = [];
         entries.forEach((entry) => id_arr.push(entry[0]));
-        console.log(id_arr);
         const id_str = id_arr.join(",");
         const token = this.getAccessToken(redir);
         const response = await fetch('https://api.spotify.com/v1/tracks?ids=' + id_str, {
@@ -51,7 +60,39 @@ const Spotify = {
         tracks_array.forEach((track, i) => {
             track.votes = entries[i][1]});
         return tracks_array;
+    },
+    async savePlaylist(tracks, playlistId) {
+        const token = this.findToken();
+        const userDataResponse = await fetch('https://api.spotify.com/v1/me', {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        let userId = await userDataResponse.json();
+        userId = userId.id;
+        if (playlistId === '') {
+            const playlistResponse = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: 'NoteVote',
+                    description: 'Dynamically generated playlist based on user votes on NoteVote!'
+                })
+            }).catch(err => console.log(err));
+            const playlistResponseJson = await playlistResponse.json();
+            console.log(playlistResponseJson);
+            const id = playlistResponseJson.id;
+            console.log(id);
+            return id;
+        } else {
+            
+        }
     }
 }
+
 
 export default Spotify;

@@ -129,22 +129,40 @@ body {
           display: grid;
           grid-template-columns: 2fr 8fr;
           height: 4.4rem;
+          border-bottom: 2px solid rgb(231, 231, 231);
           .track-details {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: flex-start;
+            display: grid;
+            grid-template-columns: 3fr 4fr 6fr;
             box-sizing: border-box;
+            align-items: center;
+            justify-content: center;
             // border: 1px solid black;
-            
-            img {
-              width: 40px;
-              height: 40px;
-              border-radius: 50%;
-              margin-right: 3rem;
-              margin-left: 3rem;
+            .artist-info {
+              // border: 1px solid black;
+              display: flex;
+              flex-direction: row;
+              justify-content: flex-start;
+              padding-left: 1rem;
+              overflow: hidden;
             }
+            .img-container {
+              // border: 1px solid black;
+              display: flex;
+              justify-content: center;
+              img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+              }
+              
+            }
+            .track-name {
+              // border: 1px solid black;
+              overflow: hidden;
+            }
+            
           }
+
           .vote-details {
             background: rgba(242, 242, 242, 0.388);
             display: flex;
