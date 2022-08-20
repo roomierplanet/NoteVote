@@ -22,7 +22,6 @@ function Host() {
         if (isAuthenticated && !isLoading) {
             getResponse();
         }
-        
     }, [isAuthenticated]) // eslint-disable-line react-hooks/exhaustive-deps
     return (
         <div className="landing-bg">

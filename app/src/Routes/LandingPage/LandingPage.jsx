@@ -23,7 +23,7 @@ function LandingPage() {
                 </Link>
               </div>
               <div className="slide-in-blurred-bottom">
-                <Link to="/" 
+                <Link to="/user" 
                   style={{'textDecoration':'none', 'color': 'white'}}>
                   <Button style={{'width': '10rem', 'borderRadius': '0.3rem', 'marginTop': '1.2rem', background:'#489ba6'}} variant="contained">
                     I am a user

@@ -1,0 +1,2 @@
+// The user information is set on localStorage. This is better since user authentication adds a useless step and takes up more 
+// cloud infrastructure. Will consider adding Auth0 as application scales.
