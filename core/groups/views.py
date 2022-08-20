@@ -34,9 +34,15 @@ class GroupView(APIView):
 @csrf_exempt
 def get_group(request, _id):
     if request.method == 'GET':
-        doc = group_records.find_one({"_id": ObjectId(_id)})
-        doc['_id'] = str(doc['_id'])
-        return HttpResponse(json.dumps(doc), content_type='application/json')
+        try:
+            doc = group_records.find_one({"_id": ObjectId(_id)})
+            doc['_id'] = str(doc['_id'])
+            return HttpResponse(json.dumps(doc), content_type='application/json')
+        except:
+            return HttpResponse(json.dumps({
+                'error': 'Could not find user'
+            }))
+
     else :
         _id = ObjectId(_id);
         doc = group_records.find_one({"_id": _id})
