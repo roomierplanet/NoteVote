@@ -61,17 +61,27 @@ const Spotify = {
             track.votes = entries[i][1]});
         return tracks_array;
     },
-    async savePlaylist(tracks, playlistId) {
-        const token = this.findToken();
+    async savePlaylist(playlist, playlistId) {
+        let token = this.findToken();
+        if (token === '') this.setToken('host/dashboard');
+        token = this.findToken();
         const userDataResponse = await fetch('https://api.spotify.com/v1/me', {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             }
-        });
+        }).catch((err) => console.log(err.message));
         let userId = await userDataResponse.json();
         userId = userId.id;
-        if (playlistId === '') {
+        if (playlistId === '') playlistId = 'something';
+        const getPlaylist = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        }).catch(err => {});
+        const checkExists = await getPlaylist.json();
+        if (checkExists.error) {
             const playlistResponse = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
                 method: 'POST',
                 headers: {
@@ -86,11 +96,20 @@ const Spotify = {
             const playlistResponseJson = await playlistResponse.json();
             console.log(playlistResponseJson);
             const id = playlistResponseJson.id;
-            console.log(id);
-            return id;
-        } else {
-            
+            playlistId = id;
         }
+        const uris = playlist.map((track) => track.uri);
+        await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
+            method: 'PUT', 
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                uris: uris
+            })
+        });
+        return playlistId;
     }
 }
 

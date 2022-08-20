@@ -42,6 +42,16 @@ const getHost = {
             body: body
         })
         return response;
+    },
+    async changeHost(_id, toChange, newDetail) {
+        const data = {}
+        data[toChange] = newDetail;
+        const body = JSON.stringify(data);
+        const response = await fetch(baseURL + _id + '/', {
+            method: 'PATCH',
+            body: body
+        });
+        return response;
     }
 }
 
