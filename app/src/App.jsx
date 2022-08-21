@@ -1,4 +1,3 @@
-import './App.css';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import LandingPage from './Routes/LandingPage/LandingPage'
 import Host from './Routes/Host/Host'
