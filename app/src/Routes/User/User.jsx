@@ -1,15 +1,22 @@
-import {useState} from 'react'
-import '../../styles.scss'
+import {useState, useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
+import '../../styles.scss';
 import {TextField, IconButton, Alert, Snackbar} from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import getHost from '../../api/getHost'
+import Spotify from '../../api/Spotify';
 
 function User() {
     const [hostId, setHostId] = useState('');
     const [error, setError] = useState(false);
+    const navigate = useNavigate();
+    useEffect(() => {
+        Spotify.getAccessToken('/user');
+    })
     const handleSearch = async () => {
         const response = await getHost.getHostById(hostId);
         if (response.error) setError(true);
+        else navigate('/user/viewhost/' + response._id);
     }
     return (
         <>
@@ -27,7 +34,7 @@ function User() {
                     value={hostId}
                     onChange={(e) => setHostId(e.target.value)}
                     style = {{
-                        borderColor: '#489ba6',
+                        borderColor: 'white',
                         borderWidth: '2px',
                         width: '25rem'
                     }}
