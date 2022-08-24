@@ -25,7 +25,7 @@ const Spotify = {
         const expires = new Date(localStorage.getItem('a_token_expires', ''));
         const time_now = new Date();
         const minutes = 1000 * 60;
-        if ((time_now - expires) / minutes >= 60) return accessToken;
+        if ((time_now - expires) / minutes >= 60) return;
         return accessToken;
     },
     authorize(redir) {
