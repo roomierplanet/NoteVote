@@ -16,7 +16,7 @@ function HostView() {
     // Client Credentials Grant Access Token to get songs and search for them
     const [atoken, setAtoken] = useState();
     // state to toggle voting UI
-    const [toggleVote, setToggleVote] = useState(true);
+    const [toggleVote, setToggleVote] = useState(false);
     // name of song to be searched for
     const [searchedSong, setSearchedSong] = useState('');
     // array of search results returned by Spotify API
@@ -126,6 +126,7 @@ function HostView() {
                         'color': '#489ba6',
                         'marginTop': '1rem'
                     }}
+                    onClick={e => setToggleVote(true)}
                     >Vote</Button>
             </div>
             }
