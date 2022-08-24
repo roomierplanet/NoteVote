@@ -12,6 +12,13 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 
+import os
+from dotenv import load_dotenv, find_dotenv
+ENV_FILE = find_dotenv()
+if ENV_FILE:
+    load_dotenv(ENV_FILE)
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -100,13 +107,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Auth0 Stuff
-import os
-from dotenv import load_dotenv, find_dotenv
-ENV_FILE = find_dotenv()
-if ENV_FILE:
-    load_dotenv(ENV_FILE)
 
+# Database Credentials
+DB_PASSWORD = os.environ.get("DB_PASSWORD")
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
