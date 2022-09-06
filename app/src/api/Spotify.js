@@ -1,8 +1,9 @@
 const clientID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
-const redirectURI = 'http://localhost:3000';
+const redirectURI = process.env.REACT_APP_DEV_INSTANCE === 'true' ? 'http://localhost:3000' : "https://notevote.tech";
 
 const Spotify = {
     getAccessToken(redir) {
+        console.log(redirectURI);
         let token = this.findToken();
         if (!token) {
             this.authorize(redir);
