@@ -1,4 +1,4 @@
-const baseURL = "/groups/";
+const baseURL = "/api/v1/groups/";
 
 const getHost = {
     async getAllHosts() {
