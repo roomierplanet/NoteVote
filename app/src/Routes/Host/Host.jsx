@@ -22,7 +22,12 @@ function Host() {
                 setNavigating(true);
                 setTimeout(() => {
                     setNavigating(false);
-                    navigate("/host/dashboard")
+                    navigate("/host/dashboard", {
+                        replace: true,
+                        state: {
+                            _id: response._id
+                        }
+                    })
                 }, 2000);
             }
         }

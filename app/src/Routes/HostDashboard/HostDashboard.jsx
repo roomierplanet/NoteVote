@@ -3,15 +3,18 @@ import '../../styles.scss'
 import Spotify from '../../api/Spotify';
 import getHost from '../../api/getHost';
 import {Button, Alert, Snackbar} from '@mui/material'
+import {useLocation} from 'react-router-dom';
 
 function HostDashboard() {
+    const location = useLocation();
     const [playlist, setPlaylist] = useState();
     const [host, setHost] = useState();
     const [success, setSuccess] = useState(false);
     useEffect(() => {
         const getPlaylist = async () => {
-            const host_id = localStorage.getItem('host_id', '');
-            const response = await getHost.getHostById(host_id);
+            // const host_id = localStorage.getItem('host_id', '');
+            console.log(location);
+            const response = await getHost.getHostById(location.state._id);
             setHost(response);
             return response;
         }
