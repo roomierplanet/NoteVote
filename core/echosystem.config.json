@@ -1,0 +1,10 @@
+{ 
+    "apps": 
+        [{ 
+            "name": "djnago_with_pm2", 
+            "script": "manage.py", 
+            "args": ["runserver", "127.0.0.1:8000"], 
+            "exec_mode": "fork", 
+            "interpreter" : "python3" 
+        }] 
+}
