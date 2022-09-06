@@ -3,7 +3,6 @@ const redirectURI = process.env.REACT_APP_DEV_INSTANCE === 'true' ? 'http://loca
 
 const Spotify = {
     getAccessToken(redir) {
-        console.log(redirectURI);
         let token = this.findToken();
         if (!token) {
             this.authorize(redir);
