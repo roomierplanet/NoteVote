@@ -4,10 +4,13 @@ import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from '../../Auth0/Login'
 import getHost from '../../api/getHost';
 import { useNavigate } from 'react-router-dom';
+import {useState} from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function Host() {
     const {isLoading, isAuthenticated, user} = useAuth0();
     const navigate = useNavigate();
+    const [navigating, setNavigating] = useState(false);
     useEffect(() => {
         const getResponse = async () => {
             const response = await getHost.getHostByAuth0Id(user.sub);
@@ -16,7 +19,11 @@ function Host() {
             }
             else {
                 localStorage.setItem('host_id', response._id);
-                navigate("/host/dashboard");
+                setNavigating(true);
+                setTimeout(() => {
+                    setNavigating(false);
+                    navigate("/host/dashboard")
+                }, 2000);
             }
         }
         if (isAuthenticated && !isLoading) {
@@ -31,6 +38,14 @@ function Host() {
                 <p>Start hosting your location on NoteVote today</p>
                 <div style={{'marginTop': '1rem'}}><LoginButton>Get started</LoginButton></div>
             </div>
+            }
+            {navigating && 
+            <CircularProgress 
+                style= {{
+                    'color': '#489ba6',
+                    'alignSelf': 'center'
+                }}
+            />
             }
             <div className="ocean">
                     <div className="wave"></div>
