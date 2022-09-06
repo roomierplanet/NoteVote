@@ -32,7 +32,7 @@ SECRET_KEY = 'django-insecure-=e=-40zjapyr-nrx2ek9!*%a2#xi#4+pp5#wphqc7$me99dm5@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['notevote.tech']
 
 
 # Application definition
