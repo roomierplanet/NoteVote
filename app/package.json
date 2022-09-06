@@ -21,7 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "buid-remote" : "react-scripts build && sudo rm -rf /var/www/react && sudo cp -r build /var/www/react", 
+    "build-remote" : "react-scripts build && sudo rm -rf /var/www/react && sudo cp -r build /var/www/react", 
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
