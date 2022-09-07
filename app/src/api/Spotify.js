@@ -92,7 +92,7 @@ const Spotify = {
                 })
             }).catch(err => console.log(err));
             const playlistResponseJson = await playlistResponse.json();
-            console.log(playlistResponseJson);
+            // console.log(playlistResponseJson);
             const id = playlistResponseJson.id;
             playlistId = id;
         }

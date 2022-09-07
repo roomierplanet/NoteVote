@@ -23,7 +23,6 @@ const getUser = {
             const hours = 1000 * 60 * 60;
             const last_vote_time = new Date(last_vote);
             const hours_passed = (time_now - last_vote_time) / hours;
-            console.log(hours_passed);
             return hours_passed >= 24;
         }
         return true;

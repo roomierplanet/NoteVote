@@ -28,7 +28,6 @@ function HostView() {
     useEffect(() => {
         const getAccessToken = async () => {
             const body = "grant_type=client_credentials&client_id=" + process.env.REACT_APP_SPOTIFY_CLIENT_ID + "&client_secret=" + process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
-            console.log(body);
             const response = await fetch('https://accounts.spotify.com/api/token', {
                 method: 'POST',
                 headers : {
@@ -98,7 +97,7 @@ function HostView() {
             setVoteFail(true);
             return;
         }
-        await fetch(`/groups/${hostId}/vote/`, {
+        await fetch(`/api/v1/groups/${hostId}/vote/`, {
             method: 'POST',
             body: JSON.stringify({
                 song_id: track.id
