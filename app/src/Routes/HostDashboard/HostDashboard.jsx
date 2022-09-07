@@ -49,6 +49,8 @@ function HostDashboard() {
                         'marginTop': '2rem'
                     }}
                     >Sync with my playlist</Button>
+                <p style={{marginTop: '2rem'}}>Your users can find you by your ID:</p>
+                <p style={{marginTop: '0rem'}}><b>{localStorage.getItem('host_id', '')}</b></p>
             </div>
             <div className="line"></div>
             <div className="dashboard-component">
