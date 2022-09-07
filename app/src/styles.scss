@@ -390,6 +390,7 @@ body {
 }
 
 .tracking-in-expand {
+  will-change: letter-spacing, opacity;
 	-webkit-animation: tracking-in-expand 1.2s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
 	        animation: tracking-in-expand 1.2s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
 }
@@ -397,6 +398,7 @@ body {
 .button-container {
   margin-top: 1rem;
 .slide-in-blurred-bottom {
+  will-change: transform, filter, transform-origin, opacity;
 	-webkit-animation: slide-in-blurred-bottom 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) 1s both;
 	        animation: slide-in-blurred-bottom 1s cubic-bezier(0.230, 1.000, 0.320, 1.000) 1s both;
 }
