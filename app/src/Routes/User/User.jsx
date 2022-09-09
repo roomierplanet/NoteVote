@@ -1,16 +1,33 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import '../../styles.scss';
-import {TextField, IconButton, Alert, Snackbar} from '@mui/material'
+import {TextField, IconButton, Alert, Snackbar, Autocomplete} from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import getHost from '../../api/getHost'
 
 function User() {
-    const [hostId, setHostId] = useState('');
+    const [hostInfo, setHostInfo] = useState();
+    const [searchField, setSearchField] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
     const [error, setError] = useState(false);
+    const [selected, setSelected] = useState();
     const navigate = useNavigate();
+    useEffect(() => {   
+        const getHosts = async () => {
+            const response = await getHost.getAllHosts();
+            setHostInfo(response);
+        }
+        getHosts();
+    }, [])
+    useEffect(() => {
+        if (hostInfo) {
+            setSearchResults(hostInfo.filter(res => {
+                return res.name.includes(searchField)
+            }));
+        }
+    }, [searchField, hostInfo])
     const handleSearch = async () => {
-        const response = await getHost.getHostById(hostId);
+        const response = await getHost.getHostById(selected._id);
         if (response.error) setError(true);
         else navigate('/user/viewhost/' + response._id);
     }
@@ -21,20 +38,44 @@ function User() {
             <p>Vote for the music you'd like to be played!</p>
             
             <div className="search-field">
-                <TextField 
+                <Autocomplete
+                    // freeSolo
+                    onChange={(event, value) => {
+                        setSelected(value);
+                        setSearchField(value ? value.name : '');
+                    }}
+                    options={searchResults}
+                    getOptionLabel={(option) => option.name}
+                    renderInput = {
+                        (params) => 
+                        <TextField {...params} 
+                            // InputLabelProps={{
+                            //     shrink: false,
+                            // }}
+                            label={searchField === '' ? 'Host Name or ID' : ''}
+                            value={searchField}
+                            style = {{
+                                borderColor: 'white',
+                                borderWidth: '2px',
+                                width: '25rem'
+                            }}
+                        />
+                    }
+                />
+                {/* <TextField 
                     id="outlined-basic" 
                     InputLabelProps={{
                         shrink: false,
                     }}
-                    label={hostId === '' ? 'Host ID' : ''}
-                    value={hostId}
-                    onChange={(e) => setHostId(e.target.value)}
+                    label={searchField === '' ? 'Host Name or ID' : ''}
+                    value={searchField}
+                    onChange={(e) => setSearchField(e.target.value)}
                     style = {{
                         borderColor: 'white',
                         borderWidth: '2px',
                         width: '25rem'
                     }}
-                ></TextField>
+                ></TextField> */}
                 <IconButton aria-label="search" size="large" onClick = {e => {handleSearch()}}>
                     <SearchIcon style={{color: '#489ba6'}} fontSize="inherit" />
                 </IconButton>   
