@@ -52,7 +52,7 @@ function User() {
                             // InputLabelProps={{
                             //     shrink: false,
                             // }}
-                            label={searchField === '' ? 'Host Name or ID' : ''}
+                            label={searchField === '' ? 'Host Name' : ''}
                             value={searchField}
                             style = {{
                                 borderColor: 'white',
