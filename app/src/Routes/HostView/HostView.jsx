@@ -63,7 +63,7 @@ function HostView() {
                 }
             });
             const jsonResponse = await response.json();
-            if (jsonResponse.error) getAccessToken();
+            if (jsonResponse.error) await getAccessToken();
             const tracks_array = jsonResponse.tracks;
             tracks_array.forEach((track, i) => {
                 track.votes = entries[i][1]});
