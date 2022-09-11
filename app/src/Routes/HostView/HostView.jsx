@@ -41,16 +41,18 @@ function HostView() {
         const jsonResponse = await response.json();
         setAtoken(jsonResponse.access_token);
     }
+    const getHostInfo = async () => {
+        const host_info = await getHost.getHostById(hostId);
+        setHostInfo(host_info);
+        return host_info;
+    }
     useEffect(() => {
         getAccessToken();
     }, []);
     useEffect(() => {
-        const getHostInfo = async () => {
-            const host_info = await getHost.getHostById(hostId);
-            setHostInfo(host_info);
-            return host_info;
-        }
         const getPlaylist = async () => {
+            if (!hostInfo) await getHostInfo();
+            if (!atoken) await getAccessToken();
             const entries = Object.entries(hostInfo.playlist).sort((a, b) => b[1] - a[1]);
             let id_arr = [];
             entries.forEach((entry) => id_arr.push(entry[0]));
@@ -69,8 +71,7 @@ function HostView() {
                 track.votes = entries[i][1]});
             setPlaylist(tracks_array);
         }
-        getHostInfo();
-        if (hostInfo) getPlaylist();
+        getPlaylist();
     }, [atoken]);
     useEffect(() => {
         // console.log("Called");
