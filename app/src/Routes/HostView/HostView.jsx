@@ -29,25 +29,20 @@ function HostView() {
     const [voteFail, setVoteFail] = useState(false);
     // toggle if vote successful
     const [voteSuccess, setVoteSuccess] = useState(false);
+    const getAccessToken = async () => {
+        const body = "grant_type=client_credentials&client_id=" + process.env.REACT_APP_SPOTIFY_CLIENT_ID + "&client_secret=" + process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
+        const response = await fetch('https://accounts.spotify.com/api/token', {
+            method: 'POST',
+            headers : {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: body
+        });
+        const jsonResponse = await response.json();
+        setAtoken(jsonResponse.access_token);
+    }
     useEffect(() => {
-        const getAccessToken = async () => {
-            const body = "grant_type=client_credentials&client_id=" + process.env.REACT_APP_SPOTIFY_CLIENT_ID + "&client_secret=" + process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
-            const response = await fetch('https://accounts.spotify.com/api/token', {
-                method: 'POST',
-                headers : {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: body
-            });
-            const jsonResponse = await response.json();
-            setAtoken(jsonResponse.access_token);
-        }
-        const hour = 1000 * 60 * 60;
         getAccessToken();
-        const intervalId = setInterval(() => {
-            getAccessToken();
-        }, hour);
-        return () => {clearInterval(intervalId)}
     }, []);
     useEffect(() => {
         const getHostInfo = async () => {
@@ -68,7 +63,7 @@ function HostView() {
                 }
             });
             const jsonResponse = await response.json();
-            
+            if (jsonResponse.error) getAccessToken();
             const tracks_array = jsonResponse.tracks;
             tracks_array.forEach((track, i) => {
                 track.votes = entries[i][1]});
