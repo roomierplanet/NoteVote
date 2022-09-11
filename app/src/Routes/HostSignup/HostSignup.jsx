@@ -4,9 +4,11 @@ import { useState } from 'react'
 import { useEffect} from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import getHost from '../../api/getHost';
+import {useNavigate} from 'react-router-dom';
 
 function HostSignup() {
     const {isLoading, user} = useAuth0();
+    const navigate = useNavigate();
     const [details, setDetails] = useState({
         name:"",
         playlist_length: 20,
@@ -22,6 +24,7 @@ function HostSignup() {
     const submitHandler = async () => {
         const response = await getHost.createHost(details);
         localStorage.setItem('host_id', response._id);
+        navigate("/host/dashboard");
     }
     return (
         <div className="singup-bg">

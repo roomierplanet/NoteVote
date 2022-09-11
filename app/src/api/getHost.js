@@ -41,7 +41,8 @@ const getHost = {
             method: "POST",
             body: body
         })
-        return response;
+        const jsonResponse = await response.json();
+        return jsonResponse;
     },
     async changeHost(_id, toChange, newDetail) {
         const data = {}
