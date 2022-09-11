@@ -40,6 +40,10 @@ function User() {
             <div className="search-field">
                 <Autocomplete
                     // freeSolo
+                    style={{
+                        width: '100%',
+                        height: '100%'
+                    }}
                     onChange={(event, value) => {
                         setSelected(value);
                         setSearchField(value ? value.name : '');
@@ -57,7 +61,8 @@ function User() {
                             style = {{
                                 borderColor: 'white',
                                 borderWidth: '2px',
-                                width: '25rem'
+                                width: '100%',
+                                height: '100%'
                             }}
                         />
                     }
@@ -76,8 +81,8 @@ function User() {
                         width: '25rem'
                     }}
                 ></TextField> */}
-                <IconButton aria-label="search" size="large" onClick = {e => {handleSearch()}}>
-                    <SearchIcon style={{color: '#489ba6'}} fontSize="inherit" />
+                <IconButton aria-label="search" size="medium" onClick = {e => {handleSearch()}}>
+                    <SearchIcon style={{color: '#489ba6'}} fontSize="medium" />
                 </IconButton>   
             </div>
            

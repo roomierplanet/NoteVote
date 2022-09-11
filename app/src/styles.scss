@@ -282,7 +282,7 @@ body {
   }
   .search-field {
     // border: 1px solid black;
-    margin-left: 5rem;
+    margin-left: 4rem;
     display: flex;
     width: 30rem;
     justify-content: center;
@@ -290,7 +290,7 @@ body {
     margin-top: 0.5rem;
     button {
       // height: 70%;
-      margin-left: 2rem;
+      margin-left: 1rem;
     }
   }
 }
@@ -458,6 +458,31 @@ body {
     h1 {
       font-weight: 1200;
       font-size: 3rem;
+    }
+  }
+  .user-bg {
+    justify-content: flex-start;
+    top: 20%;
+    // border: 1px solid black;
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 0;
+    }
+    p {
+      font-size: 0.9rem;
+    }
+    .search-field {
+      // border: 1px solid black;
+      display: flex;
+      width: 80%;
+      margin-left: 2rem;
+      justify-content: center;
+      align-items: center;
+      // flex-direction: column;
+      margin-top: 1rem;
+      button {
+        margin-left: 0.4rem;
+      }
     }
   }
 }
