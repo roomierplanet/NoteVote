@@ -84,6 +84,20 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    .vote-heading {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      // border: 1px solid black;
+      width: 40%;
+      h2 {
+        align-self: center;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+      
+    }
     .results-container::-webkit-scrollbar-track {
       background-color: transparent;
     }
@@ -548,4 +562,33 @@ body {
   .line {
     display: none;
   }
+  .vote-container {
+    h2 {
+      font-size: 1.2rem;
+    }
+    .results-container {
+      width: 80% !important;
+      height: 50% !important;
+    }
+    .vote-heading {
+      width: 80% !important;
+      h2 {
+        font-size: 1rem;
+      }
+    }
+  }
+  .result-container {
+    p {
+      font-size: 0.9rem;
+    }
+    .img-container {
+      margin-left: 0.6rem;
+      margin-right: 0.4rem;
+      img {
+        width: 30px !important;
+        height: 30px !important;
+      }
+    }
+  }
+  
 }

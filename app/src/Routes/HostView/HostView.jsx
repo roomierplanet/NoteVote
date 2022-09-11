@@ -5,6 +5,7 @@ import {Button, TextField, IconButton, Alert, Snackbar} from '@mui/material'
 import AddIcon from '@mui/icons-material/Add';
 import getUser from '../../api/getUser';
 import {useMediaQuery} from 'react-responsive';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 function HostView() {
     const isMobile = useMediaQuery({
@@ -175,8 +176,17 @@ function HostView() {
         
         </> : 
         <>
+        
         <div className="vote-container">
-            <h2>Click the plus (+) to vote for your song</h2>
+            <div className="vote-heading">
+                <div className="back-button">
+                        <IconButton aria-label="search" size="medium" onClick = {e => setToggleVote(false)}>
+                                <ArrowBackIcon style={{color: '#489ba6'}} fontSize="medium" />
+                        </IconButton>  
+                </div> 
+                <h2>Click the<AddIcon style={{color: '#489ba6', margin: '0 0.3rem 0 0.3rem'}} fontSize="medium" />icon to vote for your song</h2>
+            </div>
+                
             <TextField 
                     id="outlined-basic" 
                     InputLabelProps={{
@@ -185,11 +195,16 @@ function HostView() {
                     label={searchedSong === '' ? 'Song Name' : ''}
                     value={searchedSong}
                     onChange = {(e) => setSearchedSong(e.target.value)}
-                    style = {{
+                    style = { isMobile ? {
+                        borderColor: 'white',
+                        borderWidth: '2px',
+                        width: '80%'
+                    } : {
                         borderColor: 'white',
                         borderWidth: '2px',
                         width: '40%'
-                    }}
+                        }
+                    }
             >
             </TextField>
             {searchResults.length > 1 && 
