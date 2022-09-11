@@ -4,8 +4,12 @@ import getHost from '../../api/getHost';
 import {Button, TextField, IconButton, Alert, Snackbar} from '@mui/material'
 import AddIcon from '@mui/icons-material/Add';
 import getUser from '../../api/getUser';
+import {useMediaQuery} from 'react-responsive';
 
 function HostView() {
+    const isMobile = useMediaQuery({
+        'query': '(max-width: 700px)'
+    })
     const params = useParams();
     // id of host whose info we wish to retrieve
     const hostId = params.id;
@@ -113,13 +117,13 @@ function HostView() {
         <div className="dashboard-bg">
             {!toggleVote ? <>
             {hostInfo &&
-            <div className="dashboard-component">
+            <div className="dashboard-component" id="left">
                 <h2>Here's the current playlist at {hostInfo.name}</h2>
                 <p>Vote for the songs you'd like to be played!</p>
                 <Button 
                     variant="outlined"
                     style={{
-                        'width': '15rem',
+                        'width': '30%',
                         'borderRadius': '0.3rem',
                         'borderWidth': '2px',
                         'borderColor': '#489ba6',
@@ -131,11 +135,16 @@ function HostView() {
             </div>
             }
             <div className="line"></div>
-            <div className="dashboard-component">
+            <div className="dashboard-component" id="right">
                 <div className="playlist-box">
                     <div className="headings">
-                    <h3 style={{textAlign: 'center'}}>Votes</h3>    
-                    <h3 style={{textAlign: 'center'}}>Track</h3>
+                    <div id="heading">
+                        <h3 style={{textAlign: 'center'}}>Votes</h3> 
+                    </div>
+                    <div id="heading">
+                        <h3 style={{textAlign: 'center'}}>Track</h3>
+                    </div>
+                    
                     
                     </div>
                     <div className="tracks-grid">
@@ -149,9 +158,13 @@ function HostView() {
                                         <div className="img-container">
                                             <img src={track.album.images ? track.album.images[0].url : ''} alt="track-art"/>
                                         </div>
-                                        <div className="track-name"><b><p>{track.name} </p></b></div>
+                                        <div className="track-name">
+                                            <b><p>
+                                                {track.name.length < 15 ? track.name : track.name.substring(0, 10) + '...'} 
+                                            </p></b>
+                                        </div>
                                         <div className="artist-info">
-                                        {track.artists.length > 1 ? track.artists.map((artist, i, {length}) => {
+                                        {!isMobile && track.artists.length > 1 ? track.artists.map((artist, i, {length}) => {
                                             return (<p key={artist.name}>{artist.name}{i !== length - 1 ? <span>,&nbsp;</span> : ''}</p>)
                                         }) : <p>{track.artists[0].name}</p>}
                                         </div>
@@ -204,7 +217,7 @@ function HostView() {
                                 <div className="name-and-artist">
                                 <div className="track-name"><b><p>{track.name}</p></b></div>
                                 <div className="artist-info">
-                                {track.artists.length > 1 ? track.artists.map((artist, i, {length}) => {
+                                {!isMobile && track.artists.length > 1 ? track.artists.map((artist, i, {length}) => {
                                                 return (<p key={artist.name}>{artist.name}{i !== length - 1 ? <span>,&nbsp;</span> : ''}</p>)
                                             }) : <p>{track.artists[0].name}</p>}
                                 </div>
