@@ -29,7 +29,10 @@ class GroupView(APIView):
         body = json.loads(req_body)
         response = group_records.insert_one(body)
         response_id = response.inserted_id
-        return HttpResponse(response_id, content_type='application/json')
+        response_obj = {
+            "_id": str(response_id)
+        }
+        return HttpResponse(json.dumps(response_obj), content_type='application/json')
 
 @csrf_exempt
 def get_group(request, _id):
