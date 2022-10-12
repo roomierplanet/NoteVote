@@ -19,6 +19,17 @@ If you are a:
 <br>
 <br>
 
+# Demo
+
+
+https://user-images.githubusercontent.com/43398149/195409943-5579ab9b-5e17-4a59-9c81-7199629bb666.mp4
+
+
+
+
+<br>
+<br>
+
 # Technologies Used
 The following techologies and languages are part of the stack for NoteVote:
 
